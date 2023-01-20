@@ -3,6 +3,7 @@ const { connection } = require("./confing/db");
 const { productRoute } = require("./routes/products.route");
 const cors=require("cors");
 const { cartRouter } = require("./routes/cart.rote");
+const { authenticate } = require("./middleware/authenticate");
 
 const app=express();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({limit: '50mb'}));
 
 
 app.use("/products",productRoute);
+app.use(authenticate)
 app.use("/cart",cartRouter)
 
 
