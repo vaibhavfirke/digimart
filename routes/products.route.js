@@ -70,6 +70,19 @@ productRoute.get("/", async (req, res) => {
     console.log({ err: err });
   }
 });
+productRoute.get("/:ID", async (req, res) => {
+ const id=req.params.ID
+  try {
+      const data = await productModel.find({_id:id})
+     
+      res.send({ data: data });
+    
+  } catch (err) {
+    res.send("somthing went wrong");
+    console.log({ err: err });
+  }
+});
+
 productRoute.get("/:category", async (req, res) => {
   const cat = req.params.category;
   let sort = req.query._sort;
