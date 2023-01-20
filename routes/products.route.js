@@ -72,9 +72,24 @@ productRoute.get("/", async (req, res) => {
 });
 productRoute.get("/:category", async (req, res) => {
   const cat = req.params.category;
+  let sort = req.query._sort;
+  let page = req.query._page||1;
+  let limit = req.query._limit||0;
   try {
-    const data = await productModel.find({ category: cat });
+    if(sort=="asc"){
+      const data = await productModel.find({ category: cat }).skip(limit*(page-1)).limit(limit)
+      .sort({ price: 1 });
+      res.send({ data: data });
+    }else if(sort=="desc"){
+      const data = await productModel.find({ category: cat }).skip(limit*(page-1)).limit(limit)
+      .sort({ price: -1 });
+      res.send({ data: data });
+    }
+    else{
+      const data = await productModel.find({ category: cat }).skip(limit*(page-1)).limit(limit);
     res.send({ data: data });
+    }
+    
   } catch (err) {
     res.send("somthing went wrong");
     console.log({ err: err });
