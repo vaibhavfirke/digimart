@@ -83,6 +83,7 @@ productRoute.get("/:ID", async (req, res) => {
   }
 });
 
+
 productRoute.get("/category/:category", async (req, res) => {
   const cat = req.params.category;
   let sort = req.query._sort;
