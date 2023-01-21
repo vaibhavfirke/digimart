@@ -46,24 +46,21 @@ productRoute.get("/", async (req, res) => {
             { category: { $regex: s } },
           ],
         }).skip(limit*(page-1)).limit(limit);
-        res.send({ data: data });
+        res.send(data);
       }
     } 
     else if (sort == "asc") {
       const data = await productModel.find({}).skip(limit*(page-1)).limit(limit).sort({ price: 1 });
-      console.log(data.length)
-      res.send({ data: data });
+      res.send(data);
     } 
     else if (sort == "desc") {
       const data = await productModel.find({}).skip(limit*(page-1)).limit(limit).sort({ price: -1 });
-      console.log(data.length)
-      res.send({ data: data });
+      res.send(data);
     } 
     else {
       
       const data = await productModel.find({}).skip(limit*(page-1)).limit(limit);
-     
-      res.send({ data: data });
+      res.send(data);
     }
   } catch (err) {
     res.send("somthing went wrong");
@@ -74,8 +71,7 @@ productRoute.get("/:ID", async (req, res) => {
  const id=req.params.ID
   try {
       const data = await productModel.find({_id:id})
-     
-      res.send({ data: data });
+      res.send(data);
     
   } catch (err) {
     res.send("somthing went wrong");
@@ -93,15 +89,15 @@ productRoute.get("/category/:category", async (req, res) => {
     if(sort=="asc"){
       const data = await productModel.find({ category: cat }).skip(limit*(page-1)).limit(limit)
       .sort({ price: 1 });
-      res.send({ data: data });
+      res.send(data);
     }else if(sort=="desc"){
       const data = await productModel.find({ category: cat }).skip(limit*(page-1)).limit(limit)
       .sort({ price: -1 });
-      res.send({ data: data });
+      res.send(data);
     }
     else{
       const data = await productModel.find({ category: cat }).skip(limit*(page-1)).limit(limit);
-    res.send({ data: data });
+    res.send(data);
     }
     
   } catch (err) {
