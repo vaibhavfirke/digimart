@@ -67,6 +67,8 @@ productRoute.get("/", async (req, res) => {
     console.log({ err: err });
   }
 });
+
+
 productRoute.get("/:ID", async (req, res) => {
  const id=req.params.ID
   try {
